@@ -1,5 +1,5 @@
 function crearNuevoTurno(req, res) {
-  const { nombre, fecha } = body.req;
+  const { fecha, horario } = body.req;
 }
 
 export { crearNuevoTurno };

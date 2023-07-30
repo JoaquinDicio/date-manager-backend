@@ -8,13 +8,16 @@ async function crearCalendario(req, res) {
 async function actualizarDisponibilidad() {
   const fechasDisp = obtenerFechasProximosTresMeses();
   const fechasOcupadas = await getTurnos();
+
   fechasOcupadas.forEach((fechaOcupada) => {
     const idx = fechasDisp.findIndex(
       (fechaDisp) => fechaDisp.date === fechaOcupada.date
     );
-    fechasDisp[idx].horarios = fechasDisp[idx].horarios.filter(
-      (horario) => horario.from !== fechaOcupada.from
-    );
+    if (idx !== -1) {
+      fechasDisp[idx].horarios = fechasDisp[idx].horarios.filter(
+        (horario) => horario.from !== fechaOcupada.from
+      );
+    }
   });
   return fechasDisp;
 }

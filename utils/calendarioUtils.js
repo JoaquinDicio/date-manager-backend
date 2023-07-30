@@ -1,4 +1,4 @@
-import { addDays, startOfDay } from "date-fns";
+import { addDays, formatISO, startOfDay } from "date-fns";
 
 // Función para obtener la lista de objetos de fecha para los próximos tres meses
 function obtenerFechasProximosTresMeses() {
@@ -8,11 +8,11 @@ function obtenerFechasProximosTresMeses() {
   for (let i = 0; i < 90; i++) {
     const fechaActual = {
       date: addDays(hoy, i).setHours(0),
+      date_string: formatISO(addDays(hoy, i), { representation: "date" }),
       horarios: crearHorario(9, 18),
     };
     fechas.push(fechaActual);
   }
-
   return fechas;
 }
 
