@@ -9,7 +9,6 @@ async function crearCalendario(req, res) {
 async function actualizarDisponibilidad() {
   const fechasDisp = obtenerFechasProximosTresMeses();
   const fechasOcupadas = await getTurnos();
-  console.log(fechasOcupadas);
   fechasOcupadas.forEach((fechaOcupada) => {
     const idx = fechasDisp.findIndex(
       (fechaDisp) => fechaDisp.date === fechaOcupada.date

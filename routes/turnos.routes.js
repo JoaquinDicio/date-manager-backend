@@ -1,12 +1,12 @@
 import { Router } from "express";
 import {
-  crearNuevoTurno,
   getTodosLosTurnos,
+  postNewTurno,
 } from "../controllers/turnos.controller.js";
 const turnosRouter = Router();
 
-turnosRouter.post("/", crearNuevoTurno);
-
 turnosRouter.get("/", getTodosLosTurnos);
+
+turnosRouter.post("/", postNewTurno);
 
 export default turnosRouter;
