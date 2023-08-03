@@ -1,6 +1,8 @@
-import { collection, getDocs, setDoc, doc, addDoc } from "firebase/firestore";
+import { setDoc, doc, deleteDoc } from "firebase/firestore";
 import db from "../db/connectToDb.js";
 import { formatISO } from "date-fns";
+import getTurnos from "../utils/getTurnos.js";
+import { v4 as uuid } from "uuid";
 
 async function postNewTurno(req, res) {
   try {
@@ -11,10 +13,11 @@ async function postNewTurno(req, res) {
       from,
       to,
       date_string: formatISO(date, { representation: "date" }),
+      id: uuid(),
     };
     if (validateTurno(data)) {
       //if everything is correct, saves in db
-      await addDoc(collection(db, "turnos"), data);
+      await setDoc(doc(db, "turnos", data.id), data);
       res.status(200).send("Turno agendado correctamente");
     } else {
       res.status(400).send("Datos no validos");
@@ -39,9 +42,7 @@ function validateTurno(data) {
 
 async function getTodosLosTurnos(req, res) {
   try {
-    const turnos = [];
-    const data = await getDocs(collection(db, "turnos"));
-    data.forEach((doc) => turnos.push(doc.data()));
+    const turnos = await getTurnos();
     res.status(200).send(turnos);
   } catch (err) {
     res.status(500).send("Something went wrong, try again");
@@ -49,4 +50,15 @@ async function getTodosLosTurnos(req, res) {
   }
 }
 
-export { postNewTurno, getTodosLosTurnos };
+async function deleteTurnoById(req, res) {
+  try {
+    const { id } = req.body;
+    await deleteDoc(doc(db, "turnos", id));
+    res.status(200).send();
+  } catch (err) {
+    console.log(err);
+    res.status(500).send();
+  }
+}
+
+export { postNewTurno, getTodosLosTurnos, deleteTurnoById };
