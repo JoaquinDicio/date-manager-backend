@@ -1,15 +1,11 @@
 import { Router } from "express";
-import {
-  getTodosLosTurnos,
-  postNewTurno,
-  deleteTurnoById,
-} from "../controllers/turnos.controller.js";
+import * as turnosController from "../controllers/turnos.controller.js";
 const turnosRouter = Router();
 
-turnosRouter.get("/", getTodosLosTurnos);
+turnosRouter.get("/", turnosController.getTodosLosTurnos);
 
-turnosRouter.post("/", postNewTurno);
+turnosRouter.post("/", turnosController.postNewTurno);
 
-turnosRouter.delete("/", deleteTurnoById);
+turnosRouter.delete("/", turnosController.deleteTurnoById);
 
 export default turnosRouter;

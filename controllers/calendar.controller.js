@@ -1,11 +1,10 @@
 import { obtenerFechasProximosTresMeses } from "../utils/calendarioUtils.js";
 import getTurnos from "../utils/getTurnos.js";
 
-async function crearCalendario(req, res) {
+export async function crearCalendario(req, res) {
   const calendarioActual = await actualizarDisponibilidad();
   res.send(calendarioActual);
 }
-
 async function actualizarDisponibilidad() {
   const fechasDisp = obtenerFechasProximosTresMeses();
   const fechasOcupadas = await getTurnos();
@@ -21,5 +20,3 @@ async function actualizarDisponibilidad() {
   });
   return fechasDisp;
 }
-
-export default crearCalendario;
