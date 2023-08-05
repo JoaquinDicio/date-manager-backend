@@ -9,6 +9,7 @@ class Turno {
     this.date_string = formatISO(date, { representation: "date" });
     this.id = uuid();
   }
+
   validate = () => {
     if (!this.from || !this.to || !this.date) return false;
     if (
