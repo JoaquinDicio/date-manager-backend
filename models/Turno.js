@@ -2,11 +2,12 @@ import { v4 as uuid } from "uuid";
 import { formatISO } from "date-fns";
 
 class Turno {
-  constructor(from, to, date) {
+  constructor(from, to, date, byUser) {
     this.date = date;
     this.from = from;
     this.to = to;
     this.date_string = formatISO(date, { representation: "date" });
+    this.byUser = byUser;
     this.id = uuid();
   }
 
@@ -28,6 +29,7 @@ class Turno {
       to: this.to,
       date_string: this.date_string,
       id: this.id,
+      byUser: this.byUser,
     };
   };
 }

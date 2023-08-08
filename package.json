@@ -1,6 +1,7 @@
 {
   "name": "backend-date-manager",
   "version": "1.0.0",
+  "prettier":{"endOfLine": "auto"},
   "description": "",
   "main": "index.js",
   "type": "module",

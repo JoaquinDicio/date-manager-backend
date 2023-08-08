@@ -2,14 +2,15 @@ import User from "../models/User.js";
 import { setDoc, doc } from "firebase/firestore";
 import db from "../db/connectToDb.js";
 import verifyUserExistence from "../utils/verifyUserExistence.js";
-import { validate } from "uuid";
+import { generateToken } from "../utils/tokenUtils.js";
 
 export async function handleLogin(req, res) {
   try {
     const { username, password } = req.body;
     const user = await verifyUserExistence(username);
     if (user?.password == password) {
-      res.status(200).json({ token: "tokencode" });
+      //the generated token is only the username
+      res.status(200).json({ token: generateToken(user.username) });
     } else {
       res.status(400).json({ msg: "Contrasenia o usuario incorrectos" });
     }
