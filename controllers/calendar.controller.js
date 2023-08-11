@@ -12,6 +12,10 @@ async function actualizarDisponibilidad(speciality) {
   const fechasDisp = obtenerFechasProximosTresMeses();
   const fechasOcupadas = await getTurnos();
   //para cada fecha ocpuada, actualiza la misma fecha en el calendario obtenido
+  return eliminarEspaciosOcupados(fechasOcupadas, fechasDisp, speciality);
+}
+
+function eliminarEspaciosOcupados(fechasOcupadas, fechasDisp, speciality) {
   fechasOcupadas
     .filter((fechaOcupada) => fechaOcupada.speciality === speciality)
     .forEach((fechaOcupada) => {
@@ -26,5 +30,3 @@ async function actualizarDisponibilidad(speciality) {
     });
   return fechasDisp;
 }
-
-function actualizarFechasEnCalendario() {}
