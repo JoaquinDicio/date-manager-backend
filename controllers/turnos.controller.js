@@ -6,7 +6,7 @@ import { verifyToken } from "../utils/tokenUtils.js";
 
 export async function postNewTurno(req, res) {
   try {
-    const { token, date, from, to } = req.body;
+    const { token, date, from, to, speciality } = req.body;
 
     const username = verifyToken(token);
 
@@ -15,7 +15,7 @@ export async function postNewTurno(req, res) {
       return;
     }
 
-    const turno = new Turno(from, to, date, username);
+    const turno = new Turno(from, to, date, username, speciality);
 
     if (turno.validate()) {
       await setDoc(doc(db, "turnos", turno.id), turno.getDataForDb());
@@ -23,7 +23,7 @@ export async function postNewTurno(req, res) {
     } else {
       sendResponseError(
         400,
-        "Datos no validos, ambos campos deben tener mas de seis caracteres y no deben estar vacios",
+        "Error, verifique que ningun campo este vacio",
         res
       );
     }
